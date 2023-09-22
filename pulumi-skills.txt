@@ -1,0 +1,1 @@
+- Validación de las propiedades de los objetos gracias al tipado

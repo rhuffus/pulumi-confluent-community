@@ -1,0 +1,3 @@
+encryptionsalt: v1:YZWcv3YwP5k=:v1:uFKv5K0lWogiHiFT:4RtT/6FEsMA/n3Otkdg9FmkZuNqWxA==
+config:
+  kubernetes:context: docker-desktop
