@@ -3,7 +3,7 @@ import {core} from '@pulumi/kubernetes/types/input'
 import ServicePort = core.v1.ServicePort
 
 
-function createService(name: string, selectorApp: string, ports: Array<ServicePort>): Service {
+export function createService(name: string, selectorApp: string, ports: Array<ServicePort>): Service {
 
   return new Service(
     name,
@@ -17,22 +17,22 @@ function createService(name: string, selectorApp: string, ports: Array<ServicePo
       spec: {
         ports,
         selector: {
-          app: selectorApp,
+          'statefulset.kubernetes.io/pod-name': selectorApp,
         },
       },
     })
 }
 
-function crateServices(numberOfServices: number, name: string, selectorApp: string, ports: Array<ServicePort>): Array<Service> {
+export function createServices(numberOfServices: number, name: string, selectorApp: string, ports: Array<ServicePort>): Array<Service> {
   let services = new Array<Service>()
 
   for (let i = 0; i < numberOfServices; i++) {
-    services.push(createService(formatServiceName(name, numberOfServices), selectorApp, ports))
+    services.push(createService(formatServiceName(name, i), `kafka-${i}`, ports))
   }
 
   return services
 }
 
-function formatServiceName(name: string, id: number): string {
+export function formatServiceName(name: string, id: number): string {
   return `${name}-${id}`
 }
